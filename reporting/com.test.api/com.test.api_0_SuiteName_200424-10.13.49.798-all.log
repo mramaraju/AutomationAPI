@@ -1,0 +1,80 @@
+[INFO ][2020-04-24_10:13:56.209][pool-3-thread-1][TestExecutionEventListener.java][testExecutionLoopCount][General_0] - 
+---------------- (Test Loop Count : 1) -------------------
+[INFO ][2020-04-24_10:13:56.223][pool-3-thread-1][TestExecutionEventListener.java][printTestPlan][General_0] - *************************************************************************
+Test Name	: com.test.api.testcase.TC_LaunchApi
+Written BY	: maheshwaran
+Date		: 22/4/20
+BDD Test Plan	: To check if API is up 
+AND running
+*************************************************************************
+[INFO ][2020-04-24_10:13:56.256][pool-3-thread-1][TestExecutionEventListener.java][printTestUnitPlan][General_0] - *************************************************************************
+Unit Name	: StatusCode
+*************************************************************************
+[INFO ][2020-04-24_10:14:05.410][pool-3-thread-1][TestContext.java][setTestStatus][General_0] - [PASS]: https://api.tmsandbox.co.nz/v1/Categories/UsedCars.json?with_counts=true	API Initialization is passed with status code of	200
+[INFO ][2020-04-24_10:14:05.425][pool-3-thread-1][TestContext.java][generateUnitTestSummary][General_0] - [PASS]: StatusCode(context)
+[INFO ][2020-04-24_10:14:05.449][pool-3-thread-1][TestContext.java][generateTestSummary][General_0] - 
+Test Result : PASS
+*************************************************************************
+[INFO ][2020-04-24_10:14:05.460][pool-3-thread-1][TestExecutionEventListener.java][printTestPlan][General_0] - *************************************************************************
+Test Name	: com.test.api.testcase.TC_BrandExist
+Written BY	: maheshwaran
+Date		: 22/4/20
+BDD Test Plan	: Verify if kia brand exist in the used car category
+*************************************************************************
+[INFO ][2020-04-24_10:14:05.525][pool-3-thread-1][TestExecutionEventListener.java][printTestUnitPlan][General_0] - *************************************************************************
+Unit Name	: BrandExist
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.096][pool-3-thread-1][TestContext.java][setTestStatus][General_0] - [PASS]: Kia	brand does Exist
+[INFO ][2020-04-24_10:14:06.097][pool-3-thread-1][TestContext.java][generateUnitTestSummary][General_0] - [PASS]: BrandExist(context)
+[INFO ][2020-04-24_10:14:06.098][pool-3-thread-1][TestContext.java][generateTestSummary][General_0] - 
+Test Result : PASS
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.103][pool-3-thread-1][TestExecutionEventListener.java][printTestPlan][General_0] - *************************************************************************
+Test Name	: com.test.api.testcase.TC_BrandNotExist
+Written BY	: maheshwaran
+Date		: 22/4/20
+BDD Test Plan	: Verify if Hispano Suiza brand does not exist in the used car category
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.104][pool-3-thread-1][TestExecutionEventListener.java][printTestUnitPlan][General_0] - *************************************************************************
+Unit Name	: BrandNotExist
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.127][pool-3-thread-1][TestContext.java][setTestStatus][General_0] - [KTF]: Hispano Suiza	brand does not Exist
+[INFO ][2020-04-24_10:14:06.128][pool-3-thread-1][TestContext.java][generateUnitTestSummary][General_0] - [KTF]: BrandNotExist(context)
+[INFO ][2020-04-24_10:14:06.129][pool-3-thread-1][TestContext.java][generateTestSummary][General_0] - 
+Test Result : KTF
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.132][pool-3-thread-1][TestExecutionEventListener.java][printTestPlan][General_0] - *************************************************************************
+Test Name	: com.test.api.testcase.TC_NumOfBrand
+Written BY	: maheshwaran
+Date		: 22/4/20
+BDD Test Plan	: Verify how many named brands of used cars are available in the TradeMe UsedCars category.
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.134][pool-3-thread-1][TestExecutionEventListener.java][printTestUnitPlan][General_0] - *************************************************************************
+Unit Name	: NumOfBrand
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.166][pool-3-thread-1][TestContext.java][setTestStatus][General_0] - [PASS]: Acutual number of car under	Kia	brand	1
+[INFO ][2020-04-24_10:14:06.167][pool-3-thread-1][TestContext.java][generateUnitTestSummary][General_0] - [PASS]: NumOfBrand(context)
+[INFO ][2020-04-24_10:14:06.168][pool-3-thread-1][TestContext.java][generateTestSummary][General_0] - 
+Test Result : PASS
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.173][pool-3-thread-1][TestExecutionEventListener.java][printTestPlan][General_0] - *************************************************************************
+Test Name	: com.test.api.testcase.TC_NumOfSubCatgory
+Written BY	: maheshwaran
+Date		: 22/4/20
+BDD Test Plan	: Verify the current number of car listed in the kia category
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.175][pool-3-thread-1][TestExecutionEventListener.java][printTestUnitPlan][General_0] - *************************************************************************
+Unit Name	: NumOfSubCategory
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.200][pool-3-thread-1][TestContext.java][setTestStatus][General_0] - [PASS]: Number of Subcategories size does match with expected value of NumOfSubcats = 	76
+[INFO ][2020-04-24_10:14:06.201][pool-3-thread-1][TestContext.java][generateUnitTestSummary][General_0] - [PASS]: NumOfSubCategory(context)
+[INFO ][2020-04-24_10:14:06.202][pool-3-thread-1][TestContext.java][generateTestSummary][General_0] - 
+Test Result : PASS
+*************************************************************************
+[INFO ][2020-04-24_10:14:06.987][pool-3-thread-1][FWRunner.java][runTest][General_0] - *************************************************************************
+[TestCases] EXECUTED:5    PASS:4    SKIP:0    KTF:1    FAIL:0    [FATAL:0    CRITICAL:0    HIGH:0    MEDIUM:0    LOW:0    UNDEFINED:0   ]
+[TestUnits] EXECUTED:5    PASS:4    SKIP:0    KTF:1    FAIL:0    [FATAL:0    CRITICAL:0    HIGH:0    MEDIUM:0    LOW:0    UNDEFINED:0   ]
+
+Test start time : 24-04-2020 10:13:56
+Test finish time : 24-04-2020 10:14:06
+Test duration : 0 min, 10 sec

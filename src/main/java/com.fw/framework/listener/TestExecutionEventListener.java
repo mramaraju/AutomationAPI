@@ -1,0 +1,457 @@
+
+package com.fw.framework.listener;
+
+import java.io.File;
+
+import com.fw.framework.Enums.TestStatus;
+import com.fw.framework.FWStaticStore;
+import com.fw.framework.infra.BDDScenario;
+import com.fw.framework.infra.BDDStep;
+import com.fw.framework.infra.LogWrapper;
+import com.fw.framework.infra.TestContext;
+import com.fw.framework.infra.TestObjectWrapper;
+import com.fw.framework.infra.TestUnitObjectWrapper;
+import com.fw.interfaces.TestProgress;
+
+/**
+ * Responsible for listening to test execution event and act according to requirement. Can be used for report generation, GUI tool update or plug-in
+ * development
+ *
+ */
+public class TestExecutionEventListener implements TestProgress {
+
+	TestContext context;
+	LogWrapper logger;
+
+	public TestExecutionEventListener(TestContext context) {
+		this.context = context;
+		this.logger = context.getLogger();
+	}
+
+	@Override
+	public void beforeTestSuiteMethodExecutionStarted(String methodName, String description) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void beforeTestSuiteMethodExecutionFinished(String description) {
+		// logger.trace("\n---------------- BeforeTestSuite Method Finished -------------------");
+	}
+
+	@Override
+	public void afterTestSuiteMethodExecutionStarted(String methodName, String description) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void afterTestSuiteMethodExecutionFinished(String description) {
+		// logger.trace("\n---------------- AfterTestSuite Method Finished -------------------");
+	}
+
+	@Override
+	public void testSuiteExecutionStarted(String description) {
+		// logger.trace("\n---------------- Test Suite Start -------------------");
+	}
+
+	@Override
+	public void testSuiteExecutionFinished(String description) {
+		// logger.trace("\n---------------- Test Suite Finished -------------------");
+	}
+
+	@Override
+	public void printTestPlan(TestObjectWrapper t) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+		sb.append("\n");
+		sb.append("Test Name	: " + t.getTestClassObject().getName());
+		sb.append("\n");
+		if (!"".equals(t.getTestPlanPreparedBy())) {
+			sb.append("Written BY	: " + t.getTestPlanPreparedBy());
+			sb.append("\n");
+		}
+		if (!"".equals(t.getTestPlanPreparationDate())) {
+			sb.append("Date		: " + t.getTestPlanPreparationDate());
+			sb.append("\n");
+		}
+		if (!"".equals(t.getTestPlanDescription())) {
+			sb.append("Short Desc	: " + t.getTestPlanDescription());
+			sb.append("\n");
+		}
+		if (!"".equals(t.getTestPlanBDD())) {
+			String BDD = processBDD(t.getTestPlanBDD());
+			sb.append("BDD Test Plan	: " + BDD);
+			sb.append("\n");
+		}
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+
+		context.getLogger().info(sb.toString());
+	}
+
+	@Override
+	public void printTestPlan(BDDScenario sc) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+		sb.append("\n");
+		sb.append("Scenario: " + sc.getScenarioDescription());
+		sb.append("\n");
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+
+		context.getLogger().info(sb.toString());
+	}
+
+	@Override
+	public void printTestUnitPlan(TestUnitObjectWrapper unit) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+		sb.append("\n");
+		sb.append("Unit Name	: " + unit.getTestUnitMethod().getName());
+		sb.append("\n");
+		if (!"".equals(unit.getTestPlanPreparedBy())) {
+			sb.append("Written BY	: " + unit.getTestPlanPreparedBy());
+			sb.append("\n");
+		}
+		if (!"".equals(unit.getTestPlanPreparationDate())) {
+			sb.append("Date		: " + unit.getTestPlanPreparationDate());
+			sb.append("\n");
+		}
+		if (!"".equals(unit.getTestPlanDescription())) {
+			sb.append("Short Desc	: " + unit.getTestPlanDescription());
+			sb.append("\n");
+		}
+		if (!"".equals(unit.getTestPlanBDD())) {
+			String BDD = processBDD(unit.getTestPlanBDD());
+			sb.append("BDD Test Plan	: " + BDD);
+			sb.append("\n");
+		}
+		if (!"".equals(unit.getStepDefinition())) {
+			sb.append("Step Definition	: " + unit.getStepDefinition());
+			sb.append("\n");
+		}
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+
+		context.getLogger().info(sb.toString());
+	}
+
+	@Override
+	public void printTestUnitPlan(BDDStep step) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+		sb.append("\n");
+		sb.append("Step: " + step.getStepAction() + " " + step.getStepDescription());
+		sb.append("\n");
+		sb.append(FWStaticStore.FW_LINE_BREAK_1);
+
+		context.getLogger().info(sb.toString());
+	}
+
+	private String processBDD(String testPlanBDD) {
+		String strBDD = testPlanBDD.replaceAll("\\b([Gg][Ii][Vv][Ee][Nn])\\b", "\nGIVEN");
+		strBDD = strBDD.replaceAll("\\b([Aa][Nn][Dd])\\b", "\nAND");
+		strBDD = strBDD.replaceAll("\\b([Ww][Hh][Ee][Nn])\\b", "\nWHEN");
+		strBDD = strBDD.replaceAll("\\b([Tt][Hh][Ee][Nn])\\b", "\nTHEN");
+		strBDD = strBDD.replaceAll("\\b([Bb][Uu][Tt])\\b", "\nBUT");
+		return strBDD;
+	}
+
+	@Override
+	public void localBeforeTestCaseMethodExecutionStarted(String methodName, TestObjectWrapper t) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void localBeforeTestCaseMethodExecutionFinished(TestObjectWrapper t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void localAfterTestCaseMethodExecutionStarted(String methodName, TestObjectWrapper t) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void localAfterTestCaseMethodExecutionFinished(TestObjectWrapper t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void globalBeforeTestCaseMethodExecutionStarted(String methodName, TestObjectWrapper t) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalBeforeTestCaseMethodExecutionStarted(String methodName, BDDScenario scenario) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalBeforeTestCaseMethodExecutionFinished(TestObjectWrapper t) {
+		// logger.trace("\n---------------- BeforeTest Method Finished -------------------");
+	}
+
+	@Override
+	public void globalBeforeTestCaseMethodExecutionFinished(BDDScenario scenario) {
+		// logger.trace("\n---------------- BeforeTest Method Finished -------------------");
+	}
+
+	@Override
+	public void testCaseExecutionStarted(TestObjectWrapper t) {
+		// logger.trace("\n---------------- Test Starts -------------------");
+	}
+
+	@Override
+	public void testCaseExecutionStarted(BDDScenario scenario) {
+		// logger.trace("\n---------------- Test Starts -------------------");
+	}
+
+	@Override
+	public void testCaseExecutionFinished(TestObjectWrapper t) {
+		// logger.trace("\n---------------- Test Finish -------------------");
+	}
+
+	@Override
+	public void testCaseExecutionFinished(BDDScenario scenario) {
+		// logger.trace("\n---------------- Test Finish -------------------");
+	}
+
+	@Override
+	public void childTestCaseExecutionStarted(TestObjectWrapper t, String paramInfo) {
+		// logger.trace("\n---------------- Child Test Starts -------------------");
+	}
+
+	@Override
+	public void childTestCaseExecutionStarted(BDDScenario scenario, String paramInfo) {
+		// logger.trace("\n---------------- Child Test Starts -------------------");
+	}
+
+	@Override
+	public void childTestCaseExecutionFinished(TestObjectWrapper t) {
+		// logger.trace("\n---------------- Child Test Finish -------------------");
+	}
+
+	@Override
+	public void childTestCaseExecutionFinished(BDDScenario scenario) {
+		// logger.trace("\n---------------- Child Test Finish -------------------");
+	}
+
+	@Override
+	public void globalAfterTestCaseMethodExecutionStarted(String methodName, TestObjectWrapper t) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalAfterTestCaseMethodExecutionStarted(String methodName, BDDScenario scenario) {
+		logger.info("\n=> " + methodName + "(context)");
+
+	}
+
+	@Override
+	public void globalAfterTestCaseMethodExecutionFinished(TestObjectWrapper t) {
+		// logger.trace("\n---------------- AfterTest Method Execution Finished -------------------");
+	}
+
+	@Override
+	public void globalAfterTestCaseMethodExecutionFinished(BDDScenario scenario) {
+		// logger.trace("\n---------------- AfterTest Method Execution Finished -------------------");
+	}
+
+	@Override
+	public void testCaseExecutionSkipped(TestObjectWrapper t) {
+		logger.info("\n---------------- Skipped Test : {} -------------------", t.getTestClassObject().getName());
+	}
+
+	@Override
+	public void testExecutionLoopCount(int count) {
+		logger.info("\n---------------- (Test Loop Count : {}) -------------------", (count + 1));
+	}
+
+	@Override
+	public void testSuiteException(Throwable e) {
+		// logger.trace("\n---------------- Test Suite Exception -------------------");
+	}
+
+	@Override
+	public void testException(Throwable e) {
+		// logger.trace("\n---------------- Test Case Exception -------------------");
+	}
+	
+	@Override
+	public void unitException(Throwable e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void testCaseStatusUpdate(TestStatus testStatus, File snapshot, String msg) {
+		// logger.trace("\n---------------- Test Status Update -------------------");
+	}
+
+	@Override
+	public void testResult(TestObjectWrapper t, TestStatus testStatus, File snapshot, String description) {
+		// logger.trace("\n---------------- Test Result -------------------");
+	}
+
+	@Override
+	public void testSuiteSummaryPrinting(String description) {
+		// logger.trace("\n---------------- Test Suite Summary -------------------");
+		// logger.info("*************************************************************************");
+	}
+
+	@Override
+	public void testSuiteFailureHighlight(String description) {
+		// logger.trace("\n---------------- Test Faliure Highlight -------------------");
+		// logger.info("*************************************************************************");
+	}
+
+	@Override
+	public void globalBeforeTestUnitMethodExecutionStarted(String methodName, TestUnitObjectWrapper unit) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalBeforeTestUnitMethodExecutionStarted(String methodName, BDDStep step) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalBeforeTestUnitMethodExecutionFinished(TestUnitObjectWrapper unit) {
+		// logger.trace("\n---------------- Global Before Test Unit Method Finished -------------------");
+	}
+
+	@Override
+	public void globalBeforeTestUnitMethodExecutionFinished(BDDStep step) {
+		// logger.trace("\n---------------- Global Before Test Unit Method Finished -------------------");
+	}
+
+	@Override
+	public void localBeforeTestUnitMethodExecutionStarted(TestObjectWrapper t, TestUnitObjectWrapper unit) {
+		logger.info("\n=> " + t.getMethodBeforeTestUnit().getName() + "(context)");
+	}
+
+	@Override
+	public void localBeforeTestUnitMethodExecutionFinished(TestUnitObjectWrapper unit) {
+		// logger.trace("*************************************************************************");
+	}
+
+	@Override
+	public void globalAfterTestUnitMethodExecutionStarted(String methodName, TestUnitObjectWrapper unit) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalAfterTestUnitMethodExecutionStarted(String methodName, BDDStep step) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalAfterFailedUnitMethodExecutionStarted(String methodName, TestUnitObjectWrapper unit) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalAfterFailedUnitMethodExecutionStarted(String methodName, BDDStep step) {
+		logger.info("\n=> " + methodName + "(context)");
+	}
+
+	@Override
+	public void globalAfterTestUnitMethodExecutionFinished(TestUnitObjectWrapper unit) {
+		// logger.trace("\n---------------- Global After Test Unit Method Finished -------------------");
+	}
+
+	@Override
+	public void globalAfterTestUnitMethodExecutionFinished(BDDStep step) {
+		// logger.trace("\n---------------- Global After Test Unit Method Finished -------------------");
+	}
+
+	@Override
+	public void globalAfterFailedUnitMethodExecutionFinished(TestUnitObjectWrapper unit) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void globalAfterFailedUnitMethodExecutionFinished(BDDStep step) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void localAfterTestUnitMethodExecutionStarted(TestObjectWrapper t, TestUnitObjectWrapper unit) {
+		logger.info("\n=> " + t.getMethodAfterTestUnit().getName() + "(context)");
+	}
+
+	@Override
+	public void localAfterTestUnitMethodExecutionFinished(TestUnitObjectWrapper unit) {
+		// logger.trace("\n---------------- Local After Test Unit Method Finished -------------------");
+	}
+
+	@Override
+	public void testUnitExecutionStarted(TestUnitObjectWrapper unit) {
+		// logger.info("\n=> " + unit.getTestUnitMethod().getName() + "(context)");
+	}
+
+	@Override
+	public void testUnitExecutionStarted(BDDStep step) {
+		// logger.info("\n=> " + step.getUnit().getTestUnitMethod().getName() + "(context)");
+	}
+
+	@Override
+	public void testUnitExecutionFinished(TestUnitObjectWrapper unit) {
+		// logger.trace("\n---------------- Test Unit Execution finished -------------------");
+	}
+
+	@Override
+	public void testUnitExecutionFinished(BDDStep step) {
+		// logger.trace("\n---------------- Test Unit Execution finished -------------------");
+	}
+
+	@Override
+	public void childTestUnitExecutionStarted(TestObjectWrapper t, TestUnitObjectWrapper unit, String paramInfo) {
+		// logger.trace("\n---------------- Child Test Unit Execution started -------------------");
+	}
+
+	@Override
+	public void childTestUnitExecutionStarted(BDDScenario scenario, BDDStep step, String paramInfo) {
+		// logger.trace("\n---------------- Child Test Unit Execution started -------------------");
+	}
+
+	@Override
+	public void childTestUnitExecutionFinished(TestUnitObjectWrapper unit) {
+		// logger.trace("\n---------------- Child Test Unit Execution finished -------------------");
+	}
+
+	@Override
+	public void childTestUnitExecutionFinished(BDDStep step) {
+		// logger.trace("\n---------------- Child Test Unit Execution finished -------------------");
+	}
+
+	@Override
+	public void testCaseSummaryPrinting(String FQCN, String description) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void testUnitSummaryPrinting(String FQCN, String description) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void testResult(BDDScenario scenario, TestStatus testStatus, File snapshot, String description) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void testUnitResult(TestUnitObjectWrapper unit, TestStatus testStatus, File snapshot, String description) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

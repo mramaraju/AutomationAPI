@@ -1,0 +1,275 @@
+
+package com.fw.framework.infra;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fw.framework.Enums.Importance;
+import com.fw.framework.Enums.TestStatus;
+
+public class TestUnitObjectWrapper {
+
+	// TestTracking variables
+	private long testUnitStartTime;
+	private long testUnitFinishTime;
+
+	/*
+	 * This will be used to store all parameterised tests status. If test case is not parameterised test case then only one status will be stored
+	 */
+	private List<TestStatus> testUnitOutcomeList = new ArrayList<>();
+
+	// TestUnit
+	private Method testUnitMethod = null;
+	private boolean skipTest = false;
+	private boolean dropRemainingUnitsUponFailure = false;
+	private int testsequence = 0;
+	private String dataProviderName = "";
+	private long testTimeout = 0;
+
+	// TestPlan
+	private String testPlanDescription = "";
+	private String testPlanPreparedBy = "";
+	private String testPlanPreparationDate = "";
+	private String testreviewedBy = "";
+	private String testReviewDate = "";
+	private String testPlanBDD = "";
+
+	// StepDefinition
+	private String stepDefinition = "";
+
+	// testImportance
+	private Importance testImportance = Importance.UNDEFINED;
+
+	// Group
+	private List<String> groupList = new ArrayList<>();
+
+	// KnowToFail
+	private boolean KTF = false;
+	private String bugTrackingNumber = "";
+
+	// ExpectedException
+	private List<Class<? extends Throwable>> expectedExceptionList = null;
+	private String exceptionContains = "";
+	private Boolean enforce = true;
+	
+	// Dependency
+	private List<String> dependencyList = null;
+
+	/**
+	 * Default constructor
+	 * 
+	 * @param method test method object
+	 * @param skipTest skip property as specified in annotation
+	 * @param testsequence test sequence as specified in annotation
+	 * @param dataProviderName dataProvider name provided in {@code DataProvider} annotation
+	 * @param testTimeout test execution timeout, 0=no timeout
+	 * @param bugTrackingNumber bug reference number
+	 * @param dropRemainingUnitsUponFailure drop remaining units from execution list if set to true
+	 */
+	public TestUnitObjectWrapper(Method method, boolean skipTest, int testsequence, String dataProviderName, long testTimeout,
+			String bugTrackingNumber, boolean dropRemainingUnitsUponFailure) {
+		super();
+
+		this.testUnitMethod = method;
+		this.skipTest = skipTest;
+		this.testsequence = testsequence;
+		this.dataProviderName = dataProviderName;
+		this.testTimeout = testTimeout;
+		this.bugTrackingNumber = bugTrackingNumber;
+		this.dropRemainingUnitsUponFailure = dropRemainingUnitsUponFailure;
+	}
+
+	public long getTestUnitStartTime() {
+		return testUnitStartTime;
+	}
+
+	public void setTestUnitStartTime(long testUnitStartTime) {
+		this.testUnitStartTime = testUnitStartTime;
+	}
+
+	public long getTestUnitFinishTime() {
+		return testUnitFinishTime;
+	}
+
+	public void setTestUnitFinishTime(long testUnitFinishTime) {
+		this.testUnitFinishTime = testUnitFinishTime;
+	}
+
+	public Method getTestUnitMethod() {
+		return testUnitMethod;
+	}
+
+	public void setTestUnitMethod(Method testUnitMethod) {
+		this.testUnitMethod = testUnitMethod;
+	}
+
+	public boolean isSkipTest() {
+		return skipTest;
+	}
+
+	public void setSkipTest(boolean skipTest) {
+		this.skipTest = skipTest;
+	}
+
+	public int getTestsequence() {
+		return testsequence;
+	}
+
+	public void setTestsequence(int testsequence) {
+		this.testsequence = testsequence;
+	}
+
+	public long getTestTimeout() {
+		return testTimeout;
+	}
+
+	public void setTestTimeout(long testTimeout) {
+		this.testTimeout = testTimeout;
+	}
+
+	public List<Class<? extends Throwable>> getExpectedExceptionList() {
+		return expectedExceptionList;
+	}
+
+	public void setExpectedExceptionList(List<Class<? extends Throwable>> expectedExceptionList) {
+		this.expectedExceptionList = expectedExceptionList;
+	}
+
+	public String getExceptionContains() {
+		return exceptionContains;
+	}
+
+	public void setExceptionContains(String exceptionContains) {
+		this.exceptionContains = exceptionContains;
+	}
+
+	public Boolean isEnforceException() {
+		return enforce;
+	}
+
+	public void setEnforce(Boolean enforce) {
+		this.enforce = enforce;
+	}
+
+	public String getDataProviderName() {
+		return dataProviderName;
+	}
+
+	public void setDataProviderName(String dataProviderName) {
+		this.dataProviderName = dataProviderName;
+	}
+
+	public boolean isKTF() {
+		return KTF;
+	}
+
+	public void setKTF(boolean kTF) {
+		KTF = kTF;
+	}
+
+	public String getBugTrackingNumber() {
+		return bugTrackingNumber;
+	}
+
+	public void setBugTrackingNumber(String bugTrackingNumber) {
+		this.bugTrackingNumber = bugTrackingNumber;
+	}
+
+	public List<TestStatus> getTestUnitOutcomeList() {
+		return testUnitOutcomeList;
+	}
+
+	public void setTestUnitOutcomeList(List<TestStatus> testUnitOutcomeList) {
+		this.testUnitOutcomeList = testUnitOutcomeList;
+	}
+
+	public List<String> getGroupList() {
+		return groupList;
+	}
+
+	public void setGroupList(List<String> groupList) {
+		this.groupList = groupList;
+	}
+
+	public Importance getTestImportance() {
+		return testImportance;
+	}
+
+	public void setTestImportance(Importance testImportance) {
+		this.testImportance = testImportance;
+	}
+
+	public String getTestPlanDescription() {
+		return testPlanDescription;
+	}
+
+	public void setTestPlanDescription(String testPlanDescription) {
+		this.testPlanDescription = testPlanDescription;
+	}
+
+	public String getTestPlanPreparedBy() {
+		return testPlanPreparedBy;
+	}
+
+	public void setTestPlanPreparedBy(String testPlanPreparedBy) {
+		this.testPlanPreparedBy = testPlanPreparedBy;
+	}
+
+	public String getTestPlanPreparationDate() {
+		return testPlanPreparationDate;
+	}
+
+	public void setTestPlanPreparationDate(String testPlanPreparationDate) {
+		this.testPlanPreparationDate = testPlanPreparationDate;
+	}
+
+	public String getTestreviewedBy() {
+		return testreviewedBy;
+	}
+
+	public void setTestreviewedBy(String testreviewedBy) {
+		this.testreviewedBy = testreviewedBy;
+	}
+
+	public String getTestReviewDate() {
+		return testReviewDate;
+	}
+
+	public void setTestReviewDate(String testReviewDate) {
+		this.testReviewDate = testReviewDate;
+	}
+
+	public String getTestPlanBDD() {
+		return testPlanBDD;
+	}
+
+	public void setTestPlanBDD(String testPlanBDD) {
+		this.testPlanBDD = testPlanBDD;
+	}
+
+	public String getStepDefinition() {
+		return stepDefinition;
+	}
+
+	public void setStepDefinition(String stepDefinition) {
+		this.stepDefinition = stepDefinition;
+	}
+
+	public boolean isDropRemainingUnitsUponFailure() {
+		return dropRemainingUnitsUponFailure;
+	}
+
+	public void setDropRemainingUnitsUponFailure(boolean dropRemainingUnitsUponFailure) {
+		this.dropRemainingUnitsUponFailure = dropRemainingUnitsUponFailure;
+	}
+
+	public List<String> getDependencyList() {
+		return dependencyList;
+	}
+
+	public void setDependencyList(List<String> dependencyList) {
+		this.dependencyList = dependencyList;
+	}
+
+}

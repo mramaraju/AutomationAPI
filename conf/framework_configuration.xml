@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="framework_configuration.xsd">
+  <organization_info profile="dev">
+    <property name="Name">Gmail</property>
+    <property name="Address">albany</property>
+    <property name="Country">NewZealand</property>
+    <property name="Contact_Number">+64 1234567</property>
+    <property name="Email">maheshwaran@gmail.com</property>
+    <property name="Website">www.gmail.com</property>
+  </organization_info>
+  <logger profile="dev">
+    <!--LogLevel Options : info:debug:trace:fatal:warn:all-->
+    <property name="logLevel">info</property>
+    <property name="logRootDir">./reporting/</property>
+    <property name="enableLogDecoration">true</property>
+    <property name="enableTextLog">true</property>
+    <property name="enableHTMLLog">true</property>
+    <property name="enableRealTimeLog">true</property>
+    <property name="enableExtentReport">true</property>
+    <property name="enableJUnitReport">false</property>
+  </logger>
+  <smtp_settings profile="dev">
+    <property name="ServerAddress">smtp.gmail.com</property>
+    <property name="SSLPort">587</property>
+    <property name="SMTPAuth">true</property>
+    <property name="SendersName">maheshwaran</property>
+    <property name="SendersEmail">mahesbe@gmail.com</property>
+    <property name="emailAuthSettingsFilePath">./conf/user_auth_settings.xml</property>
+    <property name="ReceiversEmail">maheshwaran@gmail.io</property>
+    <property name="ReceiversName">Maheshwaran</property>
+    <property name="EmailSubject">Automation Results</property>
+    <property name="EmailMessage">Automation Email</property>
+  </smtp_settings>
+  <dashboard profile="dev">
+    <!--Default : 127.0.0.1-->
+    <property name="dashBoardRemoteIP">127.0.0.1</property>
+    <property name="dashBoardRemotePort">11111</property>
+  </dashboard>
+  <features profile="dev">
+    <property name="enableGUITestSelector">true</property>
+    <property name="enableGUITestSelectorSeqNumber">false</property>
+    <property name="enableBanner">false</property>
+    <property name="enableOrganisationInfo">false</property>
+    <property name="enableEmailClient">false</property>
+    <property name="enableDebug">false</property>
+    <property name="generateEclipseTemplate">true</property>
+    <property name="generateIntelliJTemplate">false</property>
+    <property name="generateTestScript">true</property>
+    <property name="stopOnFail">false</property>
+    <property name="enableDashBoard">false</property>
+  </features>
+</configuration>
